@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Name Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input {
+            padding: 6px;
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .action-btn {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Add Name</h2>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="text" id="surname" placeholder="Enter Surname">
+    <button onclick="addRow()">Add</button>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        function addRow() {
+            const name = document.getElementById("name").value.trim();
+            const surname = document.getElementById("surname").value.trim();
+
+            if (name === "" || surname === "") {
+                alert("Please enter both name and surname");
+                return;
+            }
+
+            const table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+            const newRow = table.insertRow();
+
+            const nameCell = newRow.insertCell(0);
+            const surnameCell = newRow.insertCell(1);
+            const actionCell = newRow.insertCell(2);
+
+            nameCell.innerHTML = name;
+            surnameCell.innerHTML = surname;
+
+            actionCell.innerHTML = `
+        <button class="action-btn" onclick="editRow(this)">Edit</button>
+        <button class="action-btn" onclick="deleteRow(this)">Delete</button>
+    `;
+
+            document.getElementById("name").value = "";
+            document.getElementById("surname").value = "";
+        }
+
+        function editRow(button) {
+            const row = button.parentNode.parentNode;
+            const nameCell = row.cells[0];
+            const surnameCell = row.cells[1];
+            const actionCell = row.cells[2];
+
+            const currentName = nameCell.innerText;
+            const currentSurname = surnameCell.innerText;
+
+            nameCell.innerHTML = `<input type="text" value="${currentName}">`;
+            surnameCell.innerHTML = `<input type="text" value="${currentSurname}">`;
+
+            actionCell.innerHTML = `
+        <button class="action-btn" onclick="saveRow(this)">Save</button>
+        <button class="action-btn" onclick="cancelEdit(this, '${currentName}', '${currentSurname}')">Cancel</button>
+    `;
+        }
+
+        function saveRow(button) {
+            const row = button.parentNode.parentNode;
+            const nameInput = row.cells[0].querySelector("input");
+            const surnameInput = row.cells[1].querySelector("input");
+
+            const newName = nameInput.value.trim();
+            const newSurname = surnameInput.value.trim();
+
+            if (newName === "" || newSurname === "") {
+                alert("Fields cannot be empty");
+                return;
+            }
+
+            row.cells[0].innerHTML = newName;
+            row.cells[1].innerHTML = newSurname;
+
+            row.cells[2].innerHTML = `
+        <button class="action-btn" onclick="editRow(this)">Edit</button>
+        <button class="action-btn" onclick="deleteRow(this)">Delete</button>
+    `;
+        }
+
+        function cancelEdit(button, name, surname) {
+            const row = button.parentNode.parentNode;
+
+            row.cells[0].innerHTML = name;
+            row.cells[1].innerHTML = surname;
+
+            row.cells[2].innerHTML = `
+        <button class="action-btn" onclick="editRow(this)">Edit</button>
+        <button class="action-btn" onclick="deleteRow(this)">Delete</button>
+    `;
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.style.display = "none"; // hides the row
+        }
+    </script>
+
+</body>
+
+</html>
