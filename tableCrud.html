@@ -151,4 +151,242 @@
 
 </body>
 
+
 </html>
+
+
+-Python Dictionary :
+	-Access Items :
+		- We can access values of dictionary using it's key values.
+		- get() : methods takes key as argument and return the value.
+		- keys() : returns the list of all the keys.
+		- values() : returns the list of all the values.
+		- items() : returns the list with the each pair inclosed in the tuple.
+	-Change Items :
+		- We can change the value of a specific item by referring to its key name.
+		- update() : update the dictionary with the items from the given argument.
+	-Add Items :
+		- to add item we can add new key and items using it's reference.
+		- update() : it also used to add new item if the item does not exist.
+	-Remove Item :
+		- pop() : removes the item with the specified key name.
+		- popitem() : removes the last inserted item.
+		- del , clear()
+	-Loop Dictionary :
+		- for loop is best way.
+		- values() , keys() , items()
+	-Copy Dictionary :
+		- We cannot copy a dictionary simply by typing dict2 = dict1, because: dict2 will only be a reference to dict1, and changes made in dict1 will 				automatically also be made in dict2.
+		- copy() : makes copy of dictionary.
+		- dict() : makes copy of dictionary.
+	-Nested Dictionary :
+		- A dictionary can contain dictionaries, this is called nested dictionaries.
+	-Dictionary Methods
+-If...Else :
+	-Python If :
+		- Zero (0), empty strings (""), None, and empty collections are treated as False. Everything else is treated as True.
+		-This includes positive numbers (5), negative numbers (-3), and any non-empty string (even "False" is treated as True because it's a non-empty string).
+	-Python Elif
+	-Python Else
+	-Logical Operator :
+		- and,or,not 
+	-Nested If
+	-Pass
+-Match Case :
+	- The match statement is used to perform different actions based on different conditions.
+	- Use the underscore character _ as the last case value if you want a code block to execute when there are not other matches.
+	- The value _ will always match, so it is important to place it as the last case to make it behave as a default case.
+	- Use the pipe character | as an or operator in the case evaluation to check for more than one value match in one case.
+-While Loop :
+	- we can execute a set of statements as long as a condition is true.
+	- break,continue,else
+-For Loop : 
+	-  we can execute a set of statements, once for each item in a list, tuple, set etc.
+	- Even strings are iterable objects, they contain a sequence of characters.
+	- range(),break,continue,else,pass
+	- Nested loop : A nested loop is a loop inside a loop.
+-Python Functions :
+	- A function is a block of code which only runs when it is called.
+	- A function can return data as a result.
+	- A function helps avoiding code repetition.
+
+
+
+dictionary.py
+thisdict =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+x = thisdict["model"]
+print(x)
+
+# using get() mwthod
+print(thisdict.get("year"))
+
+# using keys() method
+print(thisdict.keys())
+
+# add new key and item
+thisdict["price"]="18cr"
+print(thisdict.keys())
+
+# using values() method
+print(thisdict.values())
+
+# using items() method 
+print(thisdict.items())
+
+if "model" in thisdict:
+  print("Yes, 'model' is one of the keys in the thisdict dictionary")
+  
+# using update method 
+thisdict.update({"price":"20cr"})
+print(thisdict["price"])
+
+# using pop() method 
+thisdict.pop("price")
+print(thisdict)
+
+# using popitem() method 
+thisdict.popitem()
+print(thisdict)
+
+for x in thisdict:
+    # print(x) display keys
+    print(thisdict[x]) # display values. 
+    
+# using values() method 
+for x in thisdict.values():
+    print(x)
+    
+# using keys() method 
+for x in thisdict.keys():
+    print(x)
+    
+# using items() method 
+for x,y in thisdict.items():
+    print(x , y)
+    
+# using copy() method 
+thisdict1=thisdict.copy()
+print(thisdict1)
+
+# using dict() 
+thisdict2 = dict(thisdict)
+print(thisdict2) 
+
+myfamily = {
+  "child1" : {
+    "name" : "Emil",
+    "year" : 2004
+  },
+  "child2" : {
+    "name" : "Tobias",
+    "year" : 2007
+  },
+  "child3" : {
+    "name" : "Linus",
+    "year" : 2011
+  }
+}
+print(myfamily)
+for x, obj in myfamily.items():
+    print(x)
+    
+    for y in obj:
+        print(y + ':', obj[y])
+
+ifElse.py
+a = 2
+b = 330
+print("A") if a > b else print("B")
+
+a = 10
+b = 20
+bigger = a if a > b else b
+print("Bigger is", bigger)
+
+a = 330
+b = 330
+print("A") if a > b else print("=") if a == b else print("B")
+
+username = ""
+display_name = username if username else "Guest"
+print("Welcome,", display_name)
+
+age = 25
+is_student = False
+has_discount_code = True
+
+if (age < 18 or age > 65) and not is_student or has_discount_code:
+  print("Discount applies!")
+  
+username = "Tobias"
+password = "secret123"
+is_verified = True
+
+if username and password and is_verified:
+  print("Login successful")
+else:
+  print("Login failed")
+  
+score = 85
+attendance = 90
+submitted = True
+
+if score >= 60:
+  if attendance >= 80:
+    if submitted:
+      print("Pass with good standing")
+    else:
+      print("Pass but missing assignment")
+  else:
+    print("Pass but low attendance")
+else:
+  print("Fail")
+
+
+matchCase.py
+day = 4
+match day:
+  case 1:
+    print("Monday")
+  case 2:
+    print("Tuesday")
+  case 3:
+    print("Wednesday")
+  case 4:
+    print("Thursday")
+  case 5:
+    print("Friday")
+  case 6:
+    print("Saturday")
+  case 7:
+    print("Sunday")
+    
+day = 4
+match day:
+  case 6:
+    print("Today is Saturday")
+  case 7:
+    print("Today is Sunday")
+  case _:
+    print("Looking forward to the Weekend")
+    
+day = 4
+match day:
+  case 1 | 2 | 3 | 4 | 5:
+    print("Today is a weekday")
+  case 6 | 7:
+    print("I love weekends!")
+    
+month = 5
+day = 4
+match day:
+  case 1 | 2 | 3 | 4 | 5 if month == 4:
+    print("A weekday in April")
+  case 1 | 2 | 3 | 4 | 5 if month == 5:
+    print("A weekday in May")
+  case _:
+    print("No match")
